@@ -36,7 +36,7 @@ with open(args.proxy, "r") as opnr:
             try:
                 req = requests.get(args.web, headers={"User-Agent":"Mozilla/5.0 CK={ } (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"}, proxies={"https":x.strip(), "http":x.strip()})
                 if req.status_code == 200:
-                    file_writer("onlineProxies.txt", x)
+                    file_writer("onlineProxies.txt", x+"\n")
                     print("\033[1;32m[+]Status code: {0} OK Proxy: {1}\033[1;m".format(req.status_code, x))
                 else:
                     print("\033[1;35m[-]Status code: {0} Proxy: {1}\033[1;m".format(req.status_code, x))
