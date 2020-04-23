@@ -3,6 +3,23 @@ import argparse
 import sys
 import os
 import urllib3
+import random
+
+def user_agent():
+    
+    useragent = [
+        "Mozilla/5.0 CK={ } (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36",
+        "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:24.0) Gecko/20100101 Firefox/24.0",
+        "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9a1) Gecko/20070308 Minefield/3.0a1",
+        "Mozilla/5.0 (Linux; U; Android 2.2) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+        "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko; googleweblight) Chrome/38.0.1025.166 Mobile Safari/535.19",
+        "Mozilla/5.0 (Linux; Android 6.0.1; RedMi Note 5 Build/RB3N5C; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/68.0.3440.91 Mobile Safari/537.36",
+    ]
+
+    return random.choice(useragent)
 
 
 def console_clear():
@@ -34,7 +51,7 @@ with open(args.proxy, "r") as opnr:
     for x in opnr:
         if x[0].strip().isdigit():
             try:
-                req = requests.get(args.web, headers={"User-Agent":"Mozilla/5.0 CK={ } (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"}, proxies={"https":x.strip(), "http":x.strip()})
+                req = requests.get(args.web, headers={"User-Agent": user_agent()}, proxies={"https": x.strip(), "http": x.strip()})
                 if req.status_code == 200:
                     file_writer("onlineProxies.txt", x+"\n")
                     print("\033[1;32m[+]Status code: {0} OK Proxy: {1}\033[1;m".format(req.status_code, x))
