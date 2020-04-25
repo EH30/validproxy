@@ -51,15 +51,12 @@ with open(args.proxy, "r") as opnr:
     for x in opnr:
         if x[0].strip().isdigit():
             try:
-                req = requests.get(args.web, headers={"User-Agent": user_agent()}, proxies={"https": x.strip(), "http": x.strip()})
+                req = requests.get(args.web, headers={"User-Agent": user_agent()}, timeout=10 ,proxies={"https": x.strip(), "http": x.strip()})
                 if req.status_code == 200:
                     file_writer("onlineProxies.txt", x+"\n")
-                    print("\033[1;32m[+]Status code: {0} OK Proxy: {1}\033[1;m".format(req.status_code, x))
+                    print("\033[1;32;40m[+]Status code: {0} OK Proxy: {1}\033[1;0m".format(req.status_code, x))
                 else:
-                    print("\033[1;35m[-]Status code: {0} Proxy: {1}\033[1;m".format(req.status_code, x))
+                    print("\033[1;36;40m[-]Status code: {0} Proxy: {1}\033[1;0m".format(req.status_code, x))
             except Exception:
-                print("\033[1;35m[-]Error: {0}\033[1;m".format(x))
+                print("\033[1;36m[-]Error: {0}\033[1;0m".format(x))
                 pass
-
-        else:
-            print("This Does not look like a proxy {0}".format(x))
